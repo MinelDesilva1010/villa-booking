@@ -1,0 +1,79 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: sans-serif; background: #e4e3dc; }
+
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: linear-gradient(135deg, #907e19, #d3c30c); border-bottom: 1px solid #eee; }
+.logo { font-size: 24px; font-weight: 700; color: #333; font-family: 'Edu VIC WA NT Hand', cursive; }
+.logo span { color: #105d44; }
+.nav-links { display: flex; gap: 1.5rem; align-items: center; }
+.nav-links a { text-decoration: none; color: #555; font-size: 14px; }
+.nav-button {
+  padding: 12.5px 30px;
+  border: 0;
+  border-radius: 100px;
+  background-color: #1D9E75;
+  color: #ffffff;
+  font-weight: Bold;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+
+button:hover {
+  background-color: #31ca9a;
+  box-shadow: 0 0 20px #6fc5ff50;
+  transform: scale(1.1);
+}
+
+button:active {
+  background-color: #3d94cf;
+  transition: all 0.25s;
+  -webkit-transition: all 0.25s;
+  box-shadow: none;
+  transform: scale(0.98);
+}
+
+.hero { background: linear-gradient(135deg, #04342C, #1D9E75); padding: 4rem 2rem; text-align: center; }
+.hero h1 { color: white; font-size: 2.2rem; margin-bottom: 0.5rem; }
+.hero p { color: #9FE1CB; margin-bottom: 2rem; }
+.search-box { background: white; border-radius: 12px; padding: 1.25rem; display: flex; gap: 12px; align-items: flex-end; max-width: 750px; margin: 0 auto; }
+.search-field { flex: 1; }
+.search-field label { display: block; font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; margin-bottom: 4px; }
+.search-field input, .search-field select { width: 100%; border: 1px solid #ddd; border-radius: 8px; padding: 8px 10px; font-size: 14px; }
+/* From Uiverse.io by suda-code */ 
+button {
+  padding: 12.5px 30px;
+  border: 0;
+  border-radius: 100px;
+  background-color: #1D9E75;
+  color: #ffffff;
+  font-weight: Bold;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+
+button:hover {
+  background-color: #31ca9a;
+  box-shadow: 0 0 20px #6fc5ff50;
+  transform: scale(1.1);
+}
+
+button:active {
+  background-color: #3d94cf;
+  transition: all 0.25s;
+  -webkit-transition: all 0.25s;
+  box-shadow: none;
+  transform: scale(0.98);
+}
+
+.section { padding: 2.5rem 2rem; }
+.section-title { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+.section-sub { color: #888; font-size: 14px; margin-bottom: 1.5rem; }
+.villas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.villa-card { background: white; border: 1px solid #eee; border-radius: 12px; overflow: hidden; max-width: 400px; }
+.villa-img { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+.villa-body { padding: 1rem; }
+.villa-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.villa-loc { font-size: 13px; color: #888; margin-bottom: 8px; }
+.villa-meta { display: flex; justify-content: space-between; align-items: center; }
+.villa-price { font-size: 15px; font-weight: 600; color: #0F6E56; }
+.villa-price span { font-size: 12px; color: #888; font-weight: 400; }
+.villa-stars { color: #BA7517; font-size: 13px; }
