@@ -45,19 +45,19 @@ useEffect(() => {
   }
 
   async function fetchVillas() {
-    const res = await fetch("http://localhost:5000/api/villas")
+    const res = await fetch("https://villa-backend-1gzn.onrender.com/api/villas")
     const data = await res.json()
     setVillas(data)
   }
 
   async function fetchBookings() {
-    const res = await fetch("http://localhost:5000/api/bookings")
+    const res = await fetch("https://villa-backend-1gzn.onrender.com/api/bookings")
     const data = await res.json()
     setBookings(data)
   }
 
   async function fetchPackages(villaId) {
-  const res = await fetch(`http://localhost:5000/api/packages/${villaId}`)
+  const res = await fetch(`https://villa-backend-1gzn.onrender.com/api/packages/${villaId}`)
   const data = await res.json()
   setPackages(data)
 }
@@ -65,8 +65,8 @@ useEffect(() => {
 async function handlePackageSubmit(e) {
   e.preventDefault()
   const url = editingPackage
-    ? `http://localhost:5000/api/packages/${editingPackage._id}`
-    : "http://localhost:5000/api/packages"
+    ? `https://villa-backend-1gzn.onrender.com/api/packages/${editingPackage._id}`
+    : "https://villa-backend-1gzn.onrender.com/api/packages"
   const method = editingPackage ? "PUT" : "POST"
 
   const res = await fetch(url, {

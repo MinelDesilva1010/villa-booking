@@ -15,7 +15,7 @@ function Home() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/villas")
+    fetch("https://villa-backend-1gzn.onrender.com/api/villas")
       .then((res) => res.json())
       .then((data) => {
         setVillas(data)

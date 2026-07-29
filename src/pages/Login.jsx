@@ -17,8 +17,8 @@ function Login() {
     setLoading(true)
 
     const url = isSignup
-      ? "http://localhost:5000/api/signup"
-      : "http://localhost:5000/api/login"
+      ? "https://villa-backend-1gzn.onrender.com/api/signup"
+      : "https://villa-backend-1gzn.onrender.com/api/login"
 
     const body = isSignup
       ? { name, email, password }
