@@ -16,7 +16,7 @@ const loggedInUser = localStorage.getItem("userName")
 
   // Fetch villa from backend
  useEffect(() => {
-  fetch("http://localhost:5000/api/villas")
+  fetch("https://villa-backend-1gzn.onrender.com/api/villas")
     .then((res) => res.json())
     .then((data) => {
       const found = data.find((v) => v._id === id)
@@ -24,12 +24,12 @@ const loggedInUser = localStorage.getItem("userName")
       setLoading(false)
       // Fetch packages for this villa
       if (found) {
-        fetch(`http://localhost:5000/api/packages/${found._id}`)
+        fetch(`https://villa-backend-1gzn.onrender.com/api/packages/${found._id}`)
           .then((res) => res.json())
           .then((pkgs) => setPackages(pkgs))
       }
 
-      fetch(`http://localhost:5000/api/reviews/${id}`)
+      fetch(`https://villa-backend-1gzn.onrender.com/api/reviews/${id}`)
   .then((res) => res.json())
   .then((data) => setReviews(data))
 
@@ -64,7 +64,7 @@ const loggedInUser = localStorage.getItem("userName")
 
   async function handleReviewSubmit(e) {
   e.preventDefault()
-  const res = await fetch("http://localhost:5000/api/reviews", {
+  const res = await fetch("https://villa-backend-1gzn.onrender.com/api/reviews", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -80,7 +80,7 @@ const loggedInUser = localStorage.getItem("userName")
     setComment("")
     setRating(5)
     // Refresh reviews
-    fetch(`http://localhost:5000/api/reviews/${id}`)
+    fetch(`https://villa-backend-1gzn.onrender.com/api/reviews/${id}`)
       .then((res) => res.json())
       .then((data) => setReviews(data))
   }

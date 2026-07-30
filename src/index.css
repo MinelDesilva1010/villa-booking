@@ -32,7 +32,7 @@ button:active {
 }
 
 .hero { background: linear-gradient(135deg, #04342C, #1D9E75); padding: 4rem 2rem; text-align: center; }
-.hero h1 { color: white; font-size: 2.2rem; margin-bottom: 0.5rem; }
+.hero h1 { color: white; font-size: 2.2rem; margin-bottom: 0.5rem; font-family: 'Edu VIC WA NT Hand', cursive;}
 .hero p { color: #9FE1CB; margin-bottom: 2rem; }
 .search-box { background: white; border-radius: 12px; padding: 1.25rem; display: flex; gap: 12px; align-items: flex-end; max-width: 750px; margin: 0 auto; }
 .search-field { flex: 1; }

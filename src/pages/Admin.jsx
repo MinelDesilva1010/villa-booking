@@ -84,7 +84,7 @@ async function handlePackageSubmit(e) {
 
 async function handleDeletePackage(id) {
   if (!window.confirm("Delete this package?")) return
-  await fetch(`http://localhost:5000/api/packages/${id}`, { method: "DELETE" })
+  await fetch(`https://villa-backend-1gzn.onrender.com/api/packages/${id}`, { method: "DELETE" })
   fetchPackages(selectedVillaId)
 }
 
@@ -96,8 +96,8 @@ function handleEditPackage(pkg) {
   async function handleVillaSubmit(e) {
     e.preventDefault()
     const url = editingVilla
-      ? `http://localhost:5000/api/villas/${editingVilla._id}`
-      : "http://localhost:5000/api/villas"
+      ? `https://villa-backend-1gzn.onrender.com/api/villas/${editingVilla._id}`
+      : "https://villa-backend-1gzn.onrender.com/api/villas"
     const method = editingVilla ? "PUT" : "POST"
 
     const res = await fetch(url, {
@@ -115,7 +115,7 @@ function handleEditPackage(pkg) {
 
   async function handleDeleteVilla(id) {
     if (!window.confirm("Are you sure you want to delete this villa?")) return
-    await fetch(`http://localhost:5000/api/villas/${id}`, { method: "DELETE" })
+    await fetch(`https://villa-backend-1gzn.onrender.com/api/villas/${id}`, { method: "DELETE" })
     fetchVillas()
   }
 
@@ -234,13 +234,13 @@ function handleEditPackage(pkg) {
                     if (!file) return
                     const formData = new FormData()
                     formData.append("image", file)
-                    const res = await fetch("http://localhost:5000/api/upload", {
+                    const res = await fetch("https://villa-backend-1gzn.onrender.com/api/upload", {
                       method: "POST",
                       body: formData,
                     })
                     const data = await res.json()
                     if (data.success) {
-                      setVillaForm({ ...villaForm, image: `http://localhost:5000${data.imageUrl}` })
+                      setVillaForm({ ...villaForm, image: `https://villa-backend-1gzn.onrender.com${data.imageUrl}` })
                     }
                   }}
                 />

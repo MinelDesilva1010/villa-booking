@@ -49,7 +49,7 @@ function Home() {
       </nav>
 
       <div className="hero">
-        <h1>Find your perfect villa getaway</h1>
+        <h1>Find  your  perfect  villa  getaway</h1>
         <p>Handpicked luxury villas across the most beautiful destinations</p>
         <div className="search-box">
           <div className="search-field">
