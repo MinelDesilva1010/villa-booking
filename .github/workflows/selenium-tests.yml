@@ -1,0 +1,80 @@
+name: Selenium Villa Tests
+
+# MANUAL TRIGGER ONLY — deliberately not on push/pull_request.
+#
+# Several tests in this suite (Admin CRUD, booking, signup) create and
+# delete REAL rows in the live production database, since there is no
+# staging environment. Running that automatically on every push would mean
+# every commit — including unrelated ones — mutates production data. Instead,
+# this workflow only runs when someone explicitly clicks "Run workflow" in
+# the GitHub Actions tab.
+on:
+  workflow_dispatch:
+    inputs:
+      test_class:
+        description: >
+          Optional: run a single test class (e.g. LoginSignupTest).
+          Leave blank to run the full suite via testng.xml.
+        required: false
+        default: ""
+
+jobs:
+  selenium-tests:
+    runs-on: ubuntu-latest
+
+    # ADJUST THESE if your repo's folder names differ from the assumed layout.
+    # Since package.json lives at the repo root (the whole repo IS the React
+    # app), FRONTEND_DIR is "." — everything runs from the checkout root.
+    env:
+      FRONTEND_DIR: .
+      TESTS_DIR: selenium-villa-tests
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install frontend dependencies
+        working-directory: ${{ env.FRONTEND_DIR }}
+        run: npm ci
+
+      - name: Start frontend dev server
+        working-directory: ${{ env.FRONTEND_DIR }}
+        run: |
+          npm run dev -- --host 0.0.0.0 &
+          npx wait-on http://localhost:5173 --timeout 60000
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+          cache-dependency-path: ${{ env.TESTS_DIR }}/pom.xml
+
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Run full test suite
+        if: ${{ github.event.inputs.test_class == '' }}
+        working-directory: ${{ env.TESTS_DIR }}
+        run: mvn clean test -Dheadless=true
+
+      - name: Run single test class
+        if: ${{ github.event.inputs.test_class != '' }}
+        working-directory: ${{ env.TESTS_DIR }}
+        run: mvn clean test -Dheadless=true -Dtest=${{ github.event.inputs.test_class }}
+
+      - name: Upload Surefire test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: ${{ env.TESTS_DIR }}/target/surefire-reports/
+          retention-days: 14

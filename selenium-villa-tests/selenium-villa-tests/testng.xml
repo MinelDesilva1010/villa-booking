@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="CeylonVillas Suite" verbose="1">
+    <test name="Signup and Login Tests">
+        <classes>
+            <class name="com.villastay.tests.LoginSignupTest"/>
+        </classes>
+    </test>
+    <test name="Booking Flow Tests">
+        <classes>
+            <class name="com.villastay.tests.BookingFlowTest"/>
+        </classes>
+    </test>
+    <test name="Reviews Flow Tests">
+        <classes>
+            <class name="com.villastay.tests.ReviewsTest"/>
+        </classes>
+    </test>
+    <test name="Admin CRUD Tests">
+        <classes>
+            <class name="com.villastay.tests.AdminCrudTest"/>
+        </classes>
+    </test>
+</suite>
