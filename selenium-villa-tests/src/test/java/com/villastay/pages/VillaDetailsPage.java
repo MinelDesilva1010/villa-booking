@@ -91,6 +91,16 @@ public class VillaDetailsPage extends BasePage {
         return this;
     }
 
+    /** Diagnostic: reads the raw DOM "value" attribute of the check-in input. */
+    public String getCheckInDomValue() {
+        return visible(checkInInput).getAttribute("value");
+    }
+
+    /** Diagnostic: reads the raw DOM "value" attribute of the check-out input. */
+    public String getCheckOutDomValue() {
+        return visible(checkOutInput).getAttribute("value");
+    }
+
     public VillaDetailsPage selectGuests(String guestsValue) {
         new Select(visible(guestsSelect)).selectByVisibleText(guestsValue);
         return this;

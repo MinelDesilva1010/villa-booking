@@ -65,8 +65,7 @@ public class BookingFlowTest extends BaseTest {
     }
 
     @Test(description = "The live total preview updates correctly as dates are filled in. " +
-            "NOTE: currently failing with an unconfirmed cause (left as-is per project decision, " +
-            "not yet root-caused) — see BookingFlowTest section in README.")
+            "Under active investigation — diagnostic assertions added to pinpoint the exact failure point.")
     public void testBookingTotalPreviewCalculatesCorrectly() {
         HomePage homePage = new HomePage(driver);
         homePage.open(ConfigReader.baseUrl());
@@ -75,9 +74,22 @@ public class BookingFlowTest extends BaseTest {
         VillaDetailsPage detailsPage = homePage.clickFirstVillaCard();
         int pricePerNight = detailsPage.getPricePerNight();
 
+        String checkIn = DateUtils.futureDate(10);
+        String checkOut = DateUtils.futureDate(13); // 3 nights
+
         detailsPage.clickBookThisVilla();
-        detailsPage.enterCheckIn(DateUtils.futureDate(10));
-        detailsPage.enterCheckOut(DateUtils.futureDate(13)); // 3 nights
+        detailsPage.enterCheckIn(checkIn);
+        detailsPage.enterCheckOut(checkOut);
+
+        // Diagnostic checkpoint: confirm the dates actually landed before
+        // checking the derived total. If this fails, the JS date-setting
+        // trick didn't stick. If this PASSES but the assertion below still
+        // fails, the bug is in the nights/total calculation itself, not in
+        // how we're entering dates.
+        Assert.assertEquals(detailsPage.getCheckInDomValue(), checkIn,
+                "Check-in input's DOM value doesn't match what we tried to set");
+        Assert.assertEquals(detailsPage.getCheckOutDomValue(), checkOut,
+                "Check-out input's DOM value doesn't match what we tried to set");
 
         String previewText = detailsPage.getTotalPreviewText(); // waits for it to render
         String expectedTotal = String.valueOf(3 * pricePerNight);
