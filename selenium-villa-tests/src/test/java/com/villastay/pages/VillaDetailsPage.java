@@ -33,7 +33,15 @@ public class VillaDetailsPage extends BasePage {
     private final By nameInput = By.xpath("//input[@type='date']/ancestor::form//input[@placeholder='Your name']");
     private final By emailInput = By.xpath("//input[@type='date']/ancestor::form//input[@type='email']");
     private final By submitBookingButton = By.xpath("//input[@type='date']/ancestor::form//button[@type='submit']");
-    private final By totalPreview = By.xpath("//input[@type='date']/ancestor::form//p[contains(text(),'night')]");
+    // NOTE: uses contains(., 'night') — NOT contains(text(), 'night'). The
+    // JSX here is "{nights} night{s} × ${price} = ${total}", which React
+    // splits into multiple separate text nodes because of the interpolated
+    // expressions. XPath's text() returns a node-set of all those text
+    // nodes, but contains() only inspects the FIRST one when converting it
+    // to a string — which is just "3" (the nights count), never containing
+    // "night" at all. Using "." (the element's full string-value) correctly
+    // concatenates every text node instead.
+    private final By totalPreview = By.xpath("//input[@type='date']/ancestor::form//p[contains(., 'night')]");
 
     private final By confirmationHeading = By.xpath("//h3[contains(text(),'Booking confirmed')]");
     private final By confirmationDetails = By.xpath("//h3[contains(text(),'Booking confirmed')]/following-sibling::p");
