@@ -156,14 +156,16 @@ public class VillaDetailsPage extends BasePage {
         visible(reviewsHeading);
     }
 
-    /** Parses the "N" out of "⭐ Guest Reviews (N)". */
+    /** Parses the "N" out of "⭐ Guest Reviews (N)", waiting for the async reviews fetch to settle. */
     public int getReviewCount() {
-        String text = visible(reviewsHeading).getText();
-        Matcher m = Pattern.compile("\\((\\d+)\\)").matcher(text);
-        if (m.find()) {
-            return Integer.parseInt(m.group(1));
-        }
-        throw new IllegalStateException("Could not parse review count from: " + text);
+        return waitForStableCount(() -> {
+            String text = visible(reviewsHeading).getText();
+            Matcher m = Pattern.compile("\\((\\d+)\\)").matcher(text);
+            if (m.find()) {
+                return Integer.parseInt(m.group(1));
+            }
+            throw new IllegalStateException("Could not parse review count from: " + text);
+        });
     }
 
     public boolean hasNoReviewsMessage() {

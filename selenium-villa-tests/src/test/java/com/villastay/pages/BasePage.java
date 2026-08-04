@@ -69,4 +69,28 @@ public abstract class BasePage {
         wait.until(ExpectedConditions.alertIsPresent());
         driver.switchTo().alert().accept();
     }
+
+    /**
+     * Several count headings in this app (e.g. "All Villas (N)",
+     * "Packages (N)", "Guest Reviews (N)") start at (0) on first render,
+     * because the underlying React state is initialized as an empty array
+     * before the data fetch resolves. Reading the count the instant the
+     * heading becomes *visible* can catch that (0) before the real data has
+     * arrived — the heading existing doesn't mean the fetch finished.
+     *
+     * This waits until two reads of the count, taken 400ms apart, agree,
+     * which is a reliable enough signal that the async fetch has settled.
+     */
+    protected int waitForStableCount(java.util.function.IntSupplier countSupplier) {
+        return wait.until(d -> {
+            int first = countSupplier.getAsInt();
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException ignored) {
+                Thread.currentThread().interrupt();
+            }
+            int second = countSupplier.getAsInt();
+            return first == second ? Integer.valueOf(first) : null;
+        });
+    }
 }

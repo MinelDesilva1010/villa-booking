@@ -113,7 +113,7 @@ public class AdminPage extends BasePage {
     }
 
     public int getVillaCount() {
-        return parseCount(visible(allVillasHeading).getText());
+        return waitForStableCount(() -> parseCount(visible(allVillasHeading).getText()));
     }
 
     public boolean hasVillaNamed(String name) {
@@ -158,7 +158,7 @@ public class AdminPage extends BasePage {
     }
 
     public int getPackageCount() {
-        return parseCount(visible(packagesHeading).getText());
+        return waitForStableCount(() -> parseCount(visible(packagesHeading).getText()));
     }
 
     public boolean hasPackageNamed(String name) {
